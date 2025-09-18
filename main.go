@@ -124,7 +124,7 @@ func main() {
 
 	// insert task and
 	r.POST("/createTask", Middleware.AuthMiddleware("user"), func(c *gin.Context) {
-		userID, _ := c.Get("userID")
+		userID, _ := c.Get("user_id")
 		userIdPase := userID.(uint)
 		parseDueDate, err := time.Parse("2006-01-02", c.PostForm("dueDate"))
 
