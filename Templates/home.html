@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Task Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-6">
+
+  <div class="max-w-6xl mx-auto">
+
+    <!-- Header -->
+    <h1 class="text-4xl font-bold text-center mb-8 text-blue-700">Task Management System</h1>
+
+    <!-- Form thêm task -->
+    <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+      <h2 class="text-2xl font-semibold mb-4 text-gray-700">Thêm Task mới</h2>
+      <form id="taskForm" class="grid grid-cols-1 md:grid-cols-2 gap-4" action="/createTask" method="Post">
+        <input type="text" name="title" placeholder="Title"
+          class="border p-3 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <select name="categoryID"
+          class="border p-3 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <option value="">Chọn Category</option>
+          {{range .Category}}
+          <option value="{{.CategoryID}}">{{.CategoryName}}</option>
+          {{end}}
+        </select>
+
+        <textarea name="description" placeholder="Description"
+          class="border p-3 rounded-md w-full md:col-span-2 focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+        <input type="date" name="dueDate"
+          class="border p-3 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <button type="submit"
+          class="bg-blue-600 text-white font-semibold p-3 rounded-md hover:bg-blue-700 transition-all md:col-span-2">Thêm
+          Task</button>
+      </form>
+    </div>
+
+    <!-- Bảng hiển thị Task -->
+    <div class="bg-white p-6 rounded-xl shadow-lg">
+      <h2 class="text-2xl font-semibold mb-4 text-gray-700">Danh sách Task</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-blue-600 text-white">
+            <tr>
+              <th class="px-6 py-3 text-left text-sm font-medium">Title</th>
+              <th class="px-6 py-3 text-left text-sm font-medium">Description</th>
+              <th class="px-6 py-3 text-left text-sm font-medium">Category</th>
+              <th class="px-6 py-3 text-left text-sm font-medium">Due Date</th>
+              <th class="px-6 py-3 text-left text-sm font-medium">Status</th>
+              <th class="px-6 py-3 text-center text-sm font-medium">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <!-- Ví dụ task tĩnh, sẽ replace bằng data từ server -->
+
+            {{range .Tasks}}
+            <tr class="hover:bg-gray-100">
+              <td class="px-6 py-4">{{.Title}}</td>
+              <td class="px-6 py-4">{{.Description}}</td>
+              <td class="px-6 py-4">{{.Category.CategoryName}}</td>
+              <td class="px-6 py-4">{{.DueDate | formatDate }}</td>
+              <td class="px-6 py-4">{{.Status}}</td>
+              <td class="px-6 py-4 text-center">
+                <a href="/editTask?id={{.TaskID}}"
+                  class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 mr-2 inline-block text-center">
+                  Sửa
+                </a>
+
+                <a href="/deleteTask?id={{.TaskID}}"
+                  class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 inline-block text-center"
+                  onclick="return confirm('Bạn có chắc muốn xóa task này không?')">
+                  Xóa
+                </a>
+
+              </td>
+            </tr>
+            {{end}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+
+</html>

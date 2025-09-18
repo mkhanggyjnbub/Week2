@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Auth UI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+  <!-- Container -->
+  <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-6">
+
+    <!-- Tabs -->
+    <div class="flex justify-around mb-6">
+      <button id="loginTab" class="w-1/2 text-center py-2 font-semibold border-b-2 border-blue-500">Login</button>
+      <button id="registerTab" class="w-1/2 text-center py-2 font-semibold border-b-2 border-transparent">Register</button>
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm" class="space-y-4" action="login" method="post">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Email</label>
+        <input type="email" name="email" class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-200" placeholder="you@example.com" required>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Password</label>
+        <input type="password" name="password" class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-blue-200" placeholder="********" required>
+      </div>
+
+      <!-- Role Selection in Login -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Role</label>
+        <div class="flex items-center space-x-4 mt-2">
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="role" value="user" class="text-blue-500 focus:ring-blue-200" checked>
+            <span>User</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="role" value="admin" class="text-blue-500 focus:ring-blue-200">
+            <span>Admin</span>
+          </label>
+        </div>
+      </div>
+
+      <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">Login</button>
+    </form>
+
+    <!-- Register Form -->
+    <form id="registerForm" class="space-y-4 hidden" action="Register" method="post">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Username</label>
+        <input type="text" name="username" class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-green-200" placeholder="john_doe" required>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Email</label>
+        <input type="email" name="email" class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-green-200" placeholder="you@example.com" required>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Password</label>
+        <input type="password" name="password" class="w-full px-3 py-2 border rounded-lg focus:ring focus:ring-green-200" placeholder="********" required>
+      </div>
+      <button type="submit" class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition">Register</button>
+    </form>
+
+  </div>
+
+  <!-- Script -->
+  <script>
+    const loginTab = document.getElementById('loginTab');
+    const registerTab = document.getElementById('registerTab');
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+
+    loginTab.addEventListener('click', () => {
+      loginForm.classList.remove('hidden');
+      registerForm.classList.add('hidden');
+      loginTab.classList.add('border-blue-500');
+      registerTab.classList.remove('border-blue-500');
+    });
+
+    registerTab.addEventListener('click', () => {
+      loginForm.classList.add('hidden');
+      registerForm.classList.remove('hidden');
+      registerTab.classList.add('border-blue-500');
+      loginTab.classList.remove('border-blue-500');
+    });
+  </script>
+
+</body>
+</html>
